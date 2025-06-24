@@ -1,0 +1,12 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\sinucadelicia]
+@="URL:Sinuca Delicia Protocol"
+"URL Protocol"=""
+
+[HKEY_CLASSES_ROOT\sinucadelicia\shell]
+
+[HKEY_CLASSES_ROOT\sinucadelicia\shell\open]
+
+[HKEY_CLASSES_ROOT\sinucadelicia\shell\open\command]
+@="\"C:\\CAMINHO\\PARA\\sinucadelicia_launcher.exe\" \"%1\""

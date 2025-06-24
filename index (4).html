@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sinuca Delícia - GameStore</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Motiva+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Overlay de chuva e nuvens (inicialmente oculto) -->
+    <div id="rain-overlay" class="rain-overlay hidden">
+        <div class="clouds">
+            <div class="cloud cloud1"></div>
+            <div class="cloud cloud2"></div>
+            <div class="cloud cloud3"></div>
+        </div>
+        <div class="rain">
+            <div class="drop"></div>
+            <div class="drop"></div>
+            <div class="drop"></div>
+            <div class="drop"></div>
+            <div class="drop"></div>
+            <div class="drop"></div>
+            <div class="drop"></div>
+            class="drop"></div>
+            <div class="drop"></div>
+            <div class="drop"></div>
+            <div class="drop"></div>
+            <div class="drop"></div>
+            <div class="drop"></div>
+            <div class="drop"></div>
+            <div class="drop"></div>
+            <div class="drop"></div>
+            <div class="drop"></div>
+            <div class="drop"></div>
+            <div class="drop"></div>
+            <div class="drop"></div>
+        </div>
+    </div>
+
+    <!-- Player de vídeo (inicialmente oculto) -->
+    <div id="video-player" class="video-player hidden">
+        <div class="video-container">
+            <button id="close-video" class="close-btn">&times;</button>
+            <video id="tribute-video" controls>
+                <source src="WhatsApp Video 2025-06-17 at 22.19.15.mp4" type="video/mp4">
+                Seu navegador não suporta o elemento de vídeo.
+            </video>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <span class="logo-text">GameStore</span>
+            </div>
+            <nav class="nav">
+                <a href="#" class="nav-link active">Loja</a>
+                <a href="#" class="nav-link">Biblioteca</a>
+                <a href="#" class="nav-link">Comunidade</a>
+            </nav>
+            <div class="user-menu">
+                <span class="user-name">Jogador</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="game-header">
+            <div class="game-title">
+                <h1>SINUCA DELÍCIA</h1>
+                <div class="game-tags">
+                    <span class="tag tag-sports">Esportes</span>
+                    <span class="tag tag-simulation">Simulação</span>
+                    <span class="tag tag-casual">Casual</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-content">
+            <div class="game-media">
+                <div class="main-image">
+                    <img src="da4e9168-ee9e-4475-81a5-38f7b30c0425 (1).png" alt="Sinuca Delícia - Imagem Principal" id="main-game-image">
+                </div>
+                <div class="thumbnail-gallery">
+                    <img src="da4e9168-ee9e-4475-81a5-38f7b30c0425 (1).png" alt="Screenshot 1" class="thumbnail active" onclick="changeMainImage(this.src)">
+                    <img src="cd1f75c5-0c87-441a-9b68-72b87cfe1a38 (1).png" alt="Screenshot 2" class="thumbnail" onclick="changeMainImage(this.src)">
+                    <img src="3d5130ec-1c2c-41c2-b67c-a26835070b49 (1).png" alt="Screenshot 3" class="thumbnail" onclick="changeMainImage(this.src)">
+                    <img src="fd22294c-f629-4235-b900-4275107baab9 (1).png" alt="Screenshot 4" class="thumbnail" onclick="changeMainImage(this.src)">
+                </div>
+            </div>
+
+            <div class="game-info">
+                <div class="purchase-section">
+                    <div class="price-section">
+                        <div class="discount-badge">25% OFF</div>
+                        <div class="price-container">
+                            <span class="original-price">R$ 39,99</span>
+                            <span class="current-price">R$ 29,99</span>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn-primary" id="buy-now-btn">
+                            <span class="btn-icon">🛒</span>
+                            COMPRAR AGORA
+                        </button>
+                        <button class="btn-secondary">
+                            <span class="btn-icon">♡</span>
+                            Adicionar à Lista de Desejos
+                        </button>
+                        <button class="btn-secondary">
+                            <span class="btn-icon">📤</span>
+                            Compartilhar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="game-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Gênero:</span>
+                        <span class="detail-value">Esportes, Simulação</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Desenvolvedor:</span>
+                        <span class="detail-value">Delícia Games</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Publisher:</span>
+                        <span class="detail-value">Delícia Studios</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Data de Lançamento:</span>
+                        <span class="detail-value">2024</span>
+                    </div>
+                </div>
+
+                <div class="system-requirements">
+                    <h3>📋 Requisitos do Sistema</h3>
+                    
+                    <div class="requirements-section">
+                        <h4>Mínimo:</h4>
+                        <ul>
+                            <li><strong>Processador:</strong> Intel Core i3 / AMD FX-6300</li>
+                            <li><strong>Memória:</strong> 4 GB RAM</li>
+                            <li><strong>DirectX:</strong> DirectX 11</li>
+                        </ul>
+                    </div>
+
+                    <div class="requirements-section">
+                        <h4>Recomendado:</h4>
+                        <ul>
+                            <li><strong>Processador:</strong> Intel Core i5 / AMD Ryzen 5</li>
+                            <li><strong>Memória:</strong> 8 GB RAM</li>
+                            <li><strong>DirectX:</strong> DirectX 12</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-description">
+            <h2>Sobre o Jogo</h2>
+            <p>Mergulhe no mundo fascinante da sinuca com <strong>Sinuca Delícia</strong>, o simulador de bilhar mais realista e divertido que você já experimentou!</p>
+            
+            <p>Com gráficos impressionantes e física de jogo ultra-realista, cada tacada é uma experiência única. Desafie seus amigos ou teste suas habilidades contra a inteligência artificial avançada.</p>
+
+            <h3>🎯 Características Principais:</h3>
+            <ul class="features-list">
+                <li>Física de bolas ultra-realista</li>
+                <li>Múltiplos modos de jogo (8-Ball, 9-Ball, Snooker)</li>
+                <li>Multiplayer online e local</li>
+                <li>Sistema de torneios e rankings</li>
+                <li>Personalização completa de tacos e mesas</li>
+                <li>Tutorial interativo para iniciantes</li>
+            </ul>
+        </div>
+    </main>
+
+    <!-- Botão secreto no canto inferior -->
+    <button id="secret-btn" class="secret-btn">🎭</button>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen hidden">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2>Preparando seu jogo...</h2>
+            <p>Aguarde enquanto configuramos tudo para você.</p>
+            <div class="loading-bar">
+                <div class="loading-progress" id="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Purchase Confirmation Page -->
+    <div id="purchase-page" class="purchase-page hidden">
+        <div class="purchase-container">
+            <button id="back-to-store" class="back-btn">← Voltar à Loja</button>
+            
+            <div class="purchase-content">
+                <h1>Confirmar Compra</h1>
+                
+                <div class="purchase-item">
+                    <img src="da4e9168-ee9e-4475-81a5-38f7b30c0425.png" alt="Sinuca Delícia" class="purchase-item-image">
+                    <div class="purchase-item-details">
+                        <h3>Sinuca Delícia</h3>
+                        <p>Simulador de bilhar ultra-realista</p>
+                        <div class="purchase-price">
+                            <span class="purchase-original-price">R$ 39,99</span>
+                            <span class="purchase-current-price">R$ 29,99</span>
+                            <span class="purchase-discount">25% OFF</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="payment-methods">
+                    <h3>Método de Pagamento</h3>
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="credit" checked>
+                            <span class="payment-icon">💳</span>
+                            <span>Cartão de Crédito</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="pix">
+                            <span class="payment-icon">📱</span>
+                            <span>PIX</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="paypal">
+                            <span class="payment-icon">🏦</span>
+                            <span>PayPal</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="purchase-summary">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span>R$ 39,99</span>
+                    </div>
+                    <div class="summary-row discount">
+                        <span>Desconto (25%):</span>
+                        <span>-R$ 10,00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span>R$ 29,99</span>
+                    </div>
+                </div>
+
+                <button class="btn-confirm-purchase" id="confirm-purchase-btn">
+                    Confirmar Compra - R$ 29,99
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Page -->
+    <div id="success-page" class="success-page hidden">
+        <div class="success-container">
+            <div class="success-content">
+                <div class="success-icon">✅</div>
+                <h1>Compra Realizada com Sucesso!</h1>
+                <p>Sinuca Delícia foi adicionado à sua biblioteca e está pronto para download.</p>
+                
+                <div class="success-game-info">
+                    <img src="da4e9168-ee9e-4475-81a5-38f7b30c0425.png" alt="Sinuca Delícia" class="success-game-image">
+                    <div class="success-game-details">
+                        <h3>Sinuca Delícia</h3>
+                        <p>Pronto para jogar!</p>
+                    </div>
+                </div>
+
+                <div class="success-actions">
+                    <button class="btn-play-now" id="play-now-btn" onclick="window.location.href='sinucadelicia://play'">
+                        ▶️ JOGAR AGORA
+                    </button>
+                    <button class="btn-library">
+                        📚 Ver na Biblioteca
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

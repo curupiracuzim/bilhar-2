@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+=======
+import os
+import sys
+
+# Garante que o diretório de trabalho seja o mesmo do script
+os.chdir(os.path.dirname(os.path.abspath(sys.argv[0])))
+
+>>>>>>> d302c89 (Primeiro commit do projeto Sinuca Delícia)
 import pygame
 import sys
 import math
@@ -128,7 +137,11 @@ def mostrar_intro_gif():
             raise Exception("Nenhum frame encontrado no GIF.")
 
         # Exibe o GIF a 30fps por 9 segundos
+<<<<<<< HEAD
         fps = 30
+=======
+        fps = 40
+>>>>>>> d302c89 (Primeiro commit do projeto Sinuca Delícia)
         total_intro_duration = 9000  # milissegundos
         total_frames = fps * 9
         frame_duration = 1000 // fps  # ms por frame
@@ -1182,7 +1195,11 @@ class JogoBilhar:
             (self.botao_jogar_rect, "JOGAR"),
             (self.botao_regras_rect, "REGRAS"),
             (self.botao_sair_rect, "SAIR"),
+<<<<<<< HEAD
             (self.botao_doacao_rect, "DOAÇÃO"),
+=======
+            (self.botao_doacao_rect, "SOBRE"),
+>>>>>>> d302c89 (Primeiro commit do projeto Sinuca Delícia)
         ]
         for rect, texto in botoes:
             hover = rect.collidepoint(mouse_pos)
@@ -1292,6 +1309,7 @@ class JogoBilhar:
             tela.blit(fade_surf, (0, 0))
 
     def desenhar_imagem_inicial(self):
+<<<<<<< HEAD
         if self.imagem_inicial_bg:
             tela.blit(self.imagem_inicial_bg, (0, 0))
         else:
@@ -1317,6 +1335,23 @@ class JogoBilhar:
         if self.fading_out_imagem_inicial:
             fade_surf = pygame.Surface((self.largura, self.altura), pygame.SRCALPHA)
             fade_surf.fill((0, 0, 0, 255 - alpha))
+=======
+        # Exibe a imagem de transição correta na tela de carregamento
+        try:
+            img_path = os.path.join(assets_dir, "da4e9168-ee9e-4475-81a5-38f7b30c0425 (1).png")
+            if os.path.exists(img_path):
+                img = pygame.image.load(img_path).convert_alpha()
+                img = pygame.transform.scale(img, (self.largura, self.altura))
+                tela.blit(img, (0, 0))
+            else:
+                tela.fill(COR_FUNDO)
+        except Exception as e:
+            tela.fill(COR_FUNDO)
+        # Fade-out se necessário
+        if self.fading_out_imagem_inicial:
+            fade_surf = pygame.Surface((self.largura, self.altura), pygame.SRCALPHA)
+            fade_surf.fill((0, 0, 0, 255 - int(self.fade_alpha_imagem_inicial)))
+>>>>>>> d302c89 (Primeiro commit do projeto Sinuca Delícia)
             tela.blit(fade_surf, (0, 0))
 
     def desenhar_animacao_tacos(self):
@@ -1326,14 +1361,19 @@ class JogoBilhar:
         else:
             tela.fill(COR_FUNDO)
 
+<<<<<<< HEAD
         # --- Mesa sempre por baixo da animação ---
         # Feltro
+=======
+        # Mesa e feltro
+>>>>>>> d302c89 (Primeiro commit do projeto Sinuca Delícia)
         if self.img_mesa_feltro:
             tela.blit(self.img_mesa_feltro, (self.x_mesa, self.y_mesa))
         else:
             mesa_rect = pygame.Rect(self.x_mesa, self.y_mesa, LARGURA_MESA, ALTURA_MESA)
             pygame.draw.rect(tela, COR_MESA, mesa_rect, border_radius=20)
 
+<<<<<<< HEAD
         # Funil dos buracos (opcional, pode remover se não quiser durante animação)
         for buraco in self.buracos:
             for i in range(8, 0, -1):
@@ -1345,6 +1385,9 @@ class JogoBilhar:
                 tela.blit(funil_surf, (buraco[0] - raio, buraco[1] - raio), special_flags=pygame.BLEND_RGBA_ADD)
 
         # Borda por cima do feltro
+=======
+        # Borda
+>>>>>>> d302c89 (Primeiro commit do projeto Sinuca Delícia)
         if self.img_borda:
             borda_rect = self.img_borda.get_rect(center=(self.x_mesa + LARGURA_MESA // 2, self.y_mesa + ALTURA_MESA // 2))
             tela.blit(self.img_borda, borda_rect)
@@ -1352,6 +1395,7 @@ class JogoBilhar:
             borda_rect = pygame.Rect(self.x_mesa - 20, self.y_mesa - 20, LARGURA_MESA + 40, ALTURA_MESA + 40)
             pygame.draw.rect(tela, COR_BORDA, borda_rect, border_radius=30)
 
+<<<<<<< HEAD
         # Buracos por cima de tudo (removido)
 
         # --- Animação dos tacos e personagens ---
@@ -1364,6 +1408,30 @@ class JogoBilhar:
                 tela.blit(self.personagem_mecanico_img, self.mecanico_rect)
             if self.personagem_bebendo_img and self.bebendo_rect:
                 tela.blit(self.personagem_bebendo_img, self.bebendo_rect)
+=======
+        # --- Animação dos tacos e personagens ---
+        # Tacos devem seguir os personagens
+        if self.animacao_tacos_iniciada:
+            # TACO 1 (segue mecanico)
+            if self.taco1_rot and self.mecanico_rect:
+                taco1_rect = self.taco1_rot.get_rect(center=self.mecanico_rect.center)
+                tela.blit(self.taco1_rot, taco1_rect)
+            # TACO 2 (segue bebendo)
+            if self.taco2_rot and self.bebendo_rect:
+                taco2_rect = self.taco2_rot.get_rect(center=self.bebendo_rect.center)
+                tela.blit(self.taco2_rot, taco2_rect)
+            # Personagem mecânico
+            if self.personagem_mecanico_img and self.mecanico_rect:
+                # Aumenta o tamanho do personagem
+                img = pygame.transform.scale(self.personagem_mecanico_img, (int(self.personagem_mecanico_img.get_width()*1.7), int(self.personagem_mecanico_img.get_height()*1.7)))
+                rect = img.get_rect(center=self.mecanico_rect.center)
+                tela.blit(img, rect)
+            # Personagem bebendo
+            if self.personagem_bebendo_img and self.bebendo_rect:
+                img = pygame.transform.scale(self.personagem_bebendo_img, (int(self.personagem_bebendo_img.get_width()*1.7), int(self.personagem_bebendo_img.get_height()*1.7)))
+                rect = img.get_rect(center=self.bebendo_rect.center)
+                tela.blit(img, rect)
+>>>>>>> d302c89 (Primeiro commit do projeto Sinuca Delícia)
 
     def desenhar_jogo(self):
         # Fundo
@@ -1416,12 +1484,24 @@ class JogoBilhar:
                 angulo = self.angulo_tacada
             comprimento = 300
             # Linha pontilhada invertida (oposta ao mouse)
+<<<<<<< HEAD
             end_inv = (int(self.bola_branca.x - math.cos(angulo) * comprimento), int(self.bola_branca.y - math.sin(angulo) * comprimento))
             desenhar_linha_pontilhada(tela, (255,255,255), start, end_inv, width=2, dash_length=10)
             # Linha sólida de força (da bola até o ponteiro)
             pygame.draw.line(tela, (0,255,0), start, mouse_pos, 4)
 
         # Mensagem de estado
+=======
+            end_inv = (int(self.bola_branca.x - math.cos(angulo) * comprimento)), int(self.bola_branca.y - math.sin(angulo) * comprimento)
+            desenhar_linha_pontilhada(tela, COR_BRANCA, start, end_inv, 2)
+
+            # Linha de força
+            forca_linha = 50 + 200 * (self.distancia_puxada_estilingue / LIMITE_PUXADA_ESTILINGUE)
+            end_forca = (int(self.bola_branca.x + math.cos(angulo) * forca_linha), int(self.bola_branca.y + math.sin(angulo) * forca_linha))
+            desenhar_linha_pontilhada(tela, COR_VERMELHA, start, end_forca, 2)
+
+        # Mensagens na tela
+>>>>>>> d302c89 (Primeiro commit do projeto Sinuca Delícia)
         if self.mensagem and self.tempo_mensagem > 0:
             texto_msg = fonte_media.render(self.mensagem, True, COR_AMARELA)
             texto_rect = texto_msg.get_rect(center=(self.largura // 2, self.altura - 20))
