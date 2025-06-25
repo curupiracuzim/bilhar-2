@@ -1,12 +1,11 @@
-<<<<<<< HEAD
-=======
 import os
 import sys
+import threading
+import time
 
 # Garante que o diretório de trabalho seja o mesmo do script
 os.chdir(os.path.dirname(os.path.abspath(sys.argv[0])))
 
->>>>>>> d302c89 (Primeiro commit do projeto Sinuca Delícia)
 import pygame
 import sys
 import math
@@ -137,11 +136,7 @@ def mostrar_intro_gif():
             raise Exception("Nenhum frame encontrado no GIF.")
 
         # Exibe o GIF a 30fps por 9 segundos
-<<<<<<< HEAD
-        fps = 30
-=======
         fps = 40
->>>>>>> d302c89 (Primeiro commit do projeto Sinuca Delícia)
         total_intro_duration = 9000  # milissegundos
         total_frames = fps * 9
         frame_duration = 1000 // fps  # ms por frame
@@ -564,6 +559,10 @@ class JogoBilhar:
         # Garante que textura_mesa sempre existe, mesmo que não seja usada
         self.textura_mesa = None
 
+        # Semáforo para controlar a troca de jogador (apenas 1 thread pode trocar por vez)
+        self.semaforo_troca = threading.Semaphore(1)
+
+        # Chama o método correto para reiniciar o jogo
         self.reiniciar()
 
     def reiniciar(self):
@@ -629,6 +628,16 @@ class JogoBilhar:
             self.som_animacao_tacos_duracao = int(self.som_animacao_tacos.get_length() * 1000)
         else:
             self.som_animacao_tacos_duracao = 2000 # Fallback
+
+        # Música do menu
+        if audio_enabled:
+            try:
+                pygame.mixer.music.stop()
+                carregar_musica("musica_menu.mp3")
+                pygame.mixer.music.play(-1)
+                self.musica_menu_tocando = True
+            except Exception as e:
+                print(f"Erro ao tocar música do menu: {e}")
 
         # Inicializar bolas
         self.bolas = []
@@ -1195,11 +1204,7 @@ class JogoBilhar:
             (self.botao_jogar_rect, "JOGAR"),
             (self.botao_regras_rect, "REGRAS"),
             (self.botao_sair_rect, "SAIR"),
-<<<<<<< HEAD
-            (self.botao_doacao_rect, "DOAÇÃO"),
-=======
             (self.botao_doacao_rect, "SOBRE"),
->>>>>>> d302c89 (Primeiro commit do projeto Sinuca Delícia)
         ]
         for rect, texto in botoes:
             hover = rect.collidepoint(mouse_pos)
@@ -1309,33 +1314,6 @@ class JogoBilhar:
             tela.blit(fade_surf, (0, 0))
 
     def desenhar_imagem_inicial(self):
-<<<<<<< HEAD
-        if self.imagem_inicial_bg:
-            tela.blit(self.imagem_inicial_bg, (0, 0))
-        else:
-            tela.fill(COR_FUNDO)
-
-        # Título centralizado com efeito neon durante a transição
-        alpha = int(self.fade_alpha_imagem_inicial)
-        fonte_titulo = pygame.font.SysFont("Arial Black", max(60, LARGURA // 12), bold=True)
-        texto = "SINUCA DELÍCIA"
-        titulo = fonte_titulo.render(texto, True, (0, 255, 180))
-        glow = pygame.Surface(titulo.get_size(), pygame.SRCALPHA)
-        for i in range(1, 10):
-            pygame.draw.rect(glow, (0, 255, 180, 15), glow.get_rect(), border_radius=30+i*2)
-        titulo_rect = titulo.get_rect(center=(self.largura // 2, self.altura // 2))
-        # Sombra
-        tela.blit(titulo, (titulo_rect.x + 6, titulo_rect.y + 6))
-        # Glow
-        tela.blit(glow, titulo_rect)
-        # Texto principal
-        tela.blit(titulo, titulo_rect)
-
-        # Fade-out
-        if self.fading_out_imagem_inicial:
-            fade_surf = pygame.Surface((self.largura, self.altura), pygame.SRCALPHA)
-            fade_surf.fill((0, 0, 0, 255 - alpha))
-=======
         # Exibe a imagem de transição correta na tela de carregamento
         try:
             img_path = os.path.join(assets_dir, "da4e9168-ee9e-4475-81a5-38f7b30c0425 (1).png")
@@ -1351,7 +1329,6 @@ class JogoBilhar:
         if self.fading_out_imagem_inicial:
             fade_surf = pygame.Surface((self.largura, self.altura), pygame.SRCALPHA)
             fade_surf.fill((0, 0, 0, 255 - int(self.fade_alpha_imagem_inicial)))
->>>>>>> d302c89 (Primeiro commit do projeto Sinuca Delícia)
             tela.blit(fade_surf, (0, 0))
 
     def desenhar_animacao_tacos(self):
@@ -1361,33 +1338,14 @@ class JogoBilhar:
         else:
             tela.fill(COR_FUNDO)
 
-<<<<<<< HEAD
-        # --- Mesa sempre por baixo da animação ---
-        # Feltro
-=======
         # Mesa e feltro
->>>>>>> d302c89 (Primeiro commit do projeto Sinuca Delícia)
         if self.img_mesa_feltro:
             tela.blit(self.img_mesa_feltro, (self.x_mesa, self.y_mesa))
         else:
             mesa_rect = pygame.Rect(self.x_mesa, self.y_mesa, LARGURA_MESA, ALTURA_MESA)
             pygame.draw.rect(tela, COR_MESA, mesa_rect, border_radius=20)
 
-<<<<<<< HEAD
-        # Funil dos buracos (opcional, pode remover se não quiser durante animação)
-        for buraco in self.buracos:
-            for i in range(8, 0, -1):
-                raio = RAIO_BURACO + i * 4
-                alpha = int(60 * (i / 8))
-                cor_funil = (30, 30, 30, alpha)
-                funil_surf = pygame.Surface((raio*2, raio*2), pygame.SRCALPHA)
-                pygame.draw.circle(funil_surf, cor_funil, (raio, raio), raio)
-                tela.blit(funil_surf, (buraco[0] - raio, buraco[1] - raio), special_flags=pygame.BLEND_RGBA_ADD)
-
-        # Borda por cima do feltro
-=======
         # Borda
->>>>>>> d302c89 (Primeiro commit do projeto Sinuca Delícia)
         if self.img_borda:
             borda_rect = self.img_borda.get_rect(center=(self.x_mesa + LARGURA_MESA // 2, self.y_mesa + ALTURA_MESA // 2))
             tela.blit(self.img_borda, borda_rect)
@@ -1395,20 +1353,6 @@ class JogoBilhar:
             borda_rect = pygame.Rect(self.x_mesa - 20, self.y_mesa - 20, LARGURA_MESA + 40, ALTURA_MESA + 40)
             pygame.draw.rect(tela, COR_BORDA, borda_rect, border_radius=30)
 
-<<<<<<< HEAD
-        # Buracos por cima de tudo (removido)
-
-        # --- Animação dos tacos e personagens ---
-        if self.animacao_tacos_iniciada:
-            if self.taco1_rot and self.taco1_rect:
-                tela.blit(self.taco1_rot, self.taco1_rect)
-            if self.taco2_rot and self.taco2_rect:
-                tela.blit(self.taco2_rot, self.taco2_rect)
-            if self.personagem_mecanico_img and self.mecanico_rect:
-                tela.blit(self.personagem_mecanico_img, self.mecanico_rect)
-            if self.personagem_bebendo_img and self.bebendo_rect:
-                tela.blit(self.personagem_bebendo_img, self.bebendo_rect)
-=======
         # --- Animação dos tacos e personagens ---
         # Tacos devem seguir os personagens
         if self.animacao_tacos_iniciada:
@@ -1431,7 +1375,6 @@ class JogoBilhar:
                 img = pygame.transform.scale(self.personagem_bebendo_img, (int(self.personagem_bebendo_img.get_width()*1.7), int(self.personagem_bebendo_img.get_height()*1.7)))
                 rect = img.get_rect(center=self.bebendo_rect.center)
                 tela.blit(img, rect)
->>>>>>> d302c89 (Primeiro commit do projeto Sinuca Delícia)
 
     def desenhar_jogo(self):
         # Fundo
@@ -1484,14 +1427,6 @@ class JogoBilhar:
                 angulo = self.angulo_tacada
             comprimento = 300
             # Linha pontilhada invertida (oposta ao mouse)
-<<<<<<< HEAD
-            end_inv = (int(self.bola_branca.x - math.cos(angulo) * comprimento), int(self.bola_branca.y - math.sin(angulo) * comprimento))
-            desenhar_linha_pontilhada(tela, (255,255,255), start, end_inv, width=2, dash_length=10)
-            # Linha sólida de força (da bola até o ponteiro)
-            pygame.draw.line(tela, (0,255,0), start, mouse_pos, 4)
-
-        # Mensagem de estado
-=======
             end_inv = (int(self.bola_branca.x - math.cos(angulo) * comprimento)), int(self.bola_branca.y - math.sin(angulo) * comprimento)
             desenhar_linha_pontilhada(tela, COR_BRANCA, start, end_inv, 2)
 
@@ -1501,7 +1436,6 @@ class JogoBilhar:
             desenhar_linha_pontilhada(tela, COR_VERMELHA, start, end_forca, 2)
 
         # Mensagens na tela
->>>>>>> d302c89 (Primeiro commit do projeto Sinuca Delícia)
         if self.mensagem and self.tempo_mensagem > 0:
             texto_msg = fonte_media.render(self.mensagem, True, COR_AMARELA)
             texto_rect = texto_msg.get_rect(center=(self.largura // 2, self.altura - 20))
@@ -1555,6 +1489,9 @@ class JogoBilhar:
 
     # --- Métodos de Lógica ---
     def dar_tacada(self):
+        """
+        Função responsável por aplicar a força e direção na bola branca.
+        """
         if not self.bola_branca or not self.bola_branca.na_mesa:
             return
         forca_aplicada = self.distancia_puxada_estilingue * FATOR_FORCA_ESTILINGUE
@@ -1576,6 +1513,10 @@ class JogoBilhar:
             except Exception as e: print(f"Erro ao tocar som tacada: {e}")
 
     def verificar_troca_turno(self):
+        """
+        Função que verifica se o turno deve ser trocado após uma jogada.
+        Chama trocar_jogador() quando necessário, que agora usa thread e semáforo.
+        """
         print("[DEBUG] Verificando troca de turno...") # Log Adicionado
         jogador_continua = False
         falta_ocorrida = self.falta_na_tacada
@@ -1640,6 +1581,9 @@ class JogoBilhar:
                  except Exception as e: print(f"Erro ao tocar som acerto: {e}")
 
     def bola_encacapada(self, bola):
+        """
+        Função chamada quando uma bola é encaçapada.
+        """
         tipo_bola_str = 'Listrada' if bola.listrada else 'Lisa' if bola.numero != 0 else 'Branca'
         print(f"Processando encaçapamento: Bola {bola.numero} ({tipo_bola_str})")
 
@@ -1685,10 +1629,26 @@ class JogoBilhar:
         if audio_enabled and self.som_encacapar: self.som_encacapar.play()
 
     def trocar_jogador(self):
-        self.jogador_atual = 3 - self.jogador_atual
-        print(f"--- Vez do Jogador {self.jogador_atual} ---")
+        """
+        Função responsável por alternar o jogador atual.
+        Agora utiliza thread e semáforo para garantir que a troca de jogador
+        seja feita de forma segura e exclusiva, simulando concorrência.
+        """
+        def tarefa_troca():
+            with self.semaforo_troca:
+                # Simula um pequeno processamento concorrente
+                time.sleep(0.1)  # Simulação de delay de processamento
+                self.jogador_atual = 3 - self.jogador_atual
+                print(f"--- Vez do Jogador {self.jogador_atual} --- (trocado por thread)")
+        # Cria e inicia a thread para troca de jogador
+        thread = threading.Thread(target=tarefa_troca)
+        thread.start()
+        thread.join()  # Aguarda a thread terminar para garantir sincronismo
 
     def posicao_valida_reposicionar(self, x, y):
+        """
+        Função que verifica se a posição para reposicionar a bola branca é válida.
+        """
         if not (self.x_mesa + RAIO_BOLA < x < self.x_mesa + LARGURA_MESA - RAIO_BOLA and
                 self.y_mesa + RAIO_BOLA < y < self.y_mesa + ALTURA_MESA - RAIO_BOLA):
             return False
